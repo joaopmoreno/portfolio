@@ -1059,7 +1059,8 @@
     }
 
     .constellation-card.reveal {
-      transition: opacity .72s ease, transform .72s cubic-bezier(.2,.8,.2,1), border-color .32s ease, box-shadow .32s ease;
+      transition: opacity .64s ease, transform .64s cubic-bezier(.22,.78,.22,1), border-color .28s ease, box-shadow .28s ease;
+      will-change: opacity, transform;
     }
 
     .glow-orb {
@@ -1181,6 +1182,28 @@
       contain: layout paint style;
     }
 
+    /* Deixa o navegador poupar trabalho fora da viewport e durante a rolagem. */
+    .section {
+      content-visibility: auto;
+      contain-intrinsic-size: 900px;
+    }
+
+    body.is-scrolling .ambient-grid,
+    body.is-scrolling .scan-beam,
+    body.is-scrolling .glow-orb {
+      animation-play-state: paused !important;
+    }
+
+    /* Hand the frame budget to native scrolling: only the essential UFO motion
+       stays alive while the page is moving. */
+    body.is-scrolling .float-nav-item,
+    body.is-scrolling .floating-chip,
+    body.is-scrolling .avatar-wrap::before,
+    body.is-scrolling .avatar::after,
+    body.is-scrolling .constellation-planet {
+      animation-play-state: paused !important;
+    }
+
     /* Keep decorative motion alive while scrolling; the canvas and UFO each
        throttle themselves independently when that is actually beneficial. */
 
@@ -1193,6 +1216,7 @@
     .ufo-trail {
       backface-visibility: hidden;
       transform-style: flat;
+      will-change: transform, opacity;
     }
 
     @media (max-width: 1080px) {
@@ -1565,7 +1589,7 @@
             <span class="dot" title="estrutura pronta"></span>
           </div>
 
-          <div class="constellation" aria-label="Constelação das minhas entregas">
+          <div class="constellation" id="entregas-constelacao" aria-label="Constelação das minhas entregas">
             <div class="constellation-ufo" aria-hidden="true">
               <span class="ufo-trail"></span>
               <svg viewBox="0 0 42 30" role="presentation">
@@ -1651,7 +1675,7 @@
               class="deliveries-toggle"
               type="button"
               aria-expanded="false"
-              aria-controls="entregas"
+              aria-controls="entregas-constelacao"
             >
               <span class="toggle-label">Ver mais entregas</span>
               <span class="toggle-arrow" aria-hidden="true">↓</span>
@@ -1767,10 +1791,8 @@
       if (!constellation || !ufo || planets.length < 2) return;
 
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const forward = planets.map((_, i) => i);
-      const routeIndexes = forward.concat(forward.slice(1, -1).reverse(), [0]);
-      const travelTotal = 46000;
-      const landingPause = 1200;
+      const travelTotal = 15000;
+      const landingPause = 140;
       const sideGap = 22;
 
       let route = [];
@@ -1781,6 +1803,12 @@
       let segmentIndex = 0;
       let running = false;
       let visible = true;
+
+      // Mantém praticamente a mesma velocidade visual antes/depois do “Ver mais”.
+      // O percurso maior usa a distância real para calcular uma duração proporcional.
+      let referencePixelsPerMs = null;
+      const referenceTravelTotal = 15000;
+      const postExpandSpeedFactor = 0.90; // apenas 10% mais rápido que a velocidade inicial
 
       function rebuildPath() {
         const base = constellation.getBoundingClientRect();
@@ -1803,7 +1831,10 @@
           };
         });
 
-        const fullRoute = routeIndexes.map((i) => route[i]);
+        // Rebuild the route from the currently visible planets. This is important
+        // after “Ver mais”, when planets 03–05 become visible dynamically.
+        const routeIndexes = planets.map((_, i) => i);
+        const fullRoute = routeIndexes.concat(routeIndexes.slice(1, -1).reverse(), [0]).map((i) => route[i]);
         const distances = [];
         let distanceTotal = 0;
 
@@ -1815,7 +1846,20 @@
           distanceTotal += distance;
         }
 
-        const travelBudget = Math.max(travelTotal - landingPause * distances.length, 1);
+        // Na primeira montagem (02 planetas visíveis), registramos a velocidade-base.
+        if (referencePixelsPerMs === null && planets.length === 2 && distanceTotal > 0) {
+          referencePixelsPerMs = distanceTotal / referenceTravelTotal;
+        }
+
+        // Depois do “Ver mais”, aumentamos o tempo total na proporção da distância
+        // para que o UFO não fique artificialmente acelerado entre 03–05.
+        const targetSpeed = referencePixelsPerMs
+          ? referencePixelsPerMs * postExpandSpeedFactor
+          : distanceTotal / Math.max(travelTotal, 1);
+        const travelBudget = Math.max(
+          (distanceTotal > 0 ? distanceTotal / targetSpeed : travelTotal) - landingPause * distances.length,
+          1
+        );
         const durations = distances.map((distance) =>
           travelBudget * (distanceTotal ? distance / distanceTotal : 1 / distances.length)
         );
@@ -1846,6 +1890,7 @@
 
       function render(now) {
         if (!running || reduceMotion || !visible || !route.length || !timeline.length) return;
+        raf = requestAnimationFrame(render);
 
         const elapsed = (now - startTime) % totalCycle;
         while (segmentIndex < timeline.length - 1 && elapsed >= timeline[segmentIndex].start + timeline[segmentIndex].duration) {
@@ -1870,7 +1915,6 @@
           ufo.style.transform = `translate3d(${x}px,${y}px,0) rotate(${segment.angle * .10}deg)`;
         }
 
-        raf = requestAnimationFrame(render);
       }
 
       function stop() {
@@ -1976,7 +2020,7 @@
 
       // Reduced motion: draw a single static frame and stop entirely, no loop at all.
       if (reduced) {
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
         const w = window.innerWidth, h = window.innerHeight;
         canvas.width = Math.round(w * dpr);
         canvas.height = Math.round(h * dpr);
@@ -1995,17 +2039,15 @@
       let lastFrame = 0;
       let lastTs = 0;
       let scrollResumeTimer = 0;
+      let scrolling = false;
 
       // Fewer particles and shorter link distance keep the O(n^2) connection
       // check cheap even on low-end hardware. DPR is capped so the canvas
       // isn't rasterized at needlessly high pixel density.
-      const linkDistance = mobile ? 70 : 100;
       const settings = {
-        count: mobile ? 16 : 34,
-        linkDistance,
-        linkDistanceSq: linkDistance * linkDistance,
-        speed: 0.18,
-        frameInterval: 1000 / 30 // lighter render cadence keeps the page responsive while scrolling
+        count: mobile ? 7 : 14,
+        speed: 0.14,
+        frameInterval: 1000 / 18
       };
 
       // Stardust cursor trail: tiny fading specks spawned along the pointer's
@@ -2014,7 +2056,7 @@
       // above so it never adds a second render loop or a second clearRect.
       const pointerFine = window.matchMedia("(pointer: fine)").matches;
       const trail = [];
-      const trailMax = 46;
+      const trailMax = 24;
       let lastTrailX = null;
       let lastTrailY = null;
 
@@ -2040,7 +2082,7 @@
           const dx = x - lastTrailX;
           const dy = y - lastTrailY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const steps = Math.min(Math.floor(dist / 14), 4);
+          const steps = Math.min(Math.floor(dist / 20), 2);
           for (let i = 1; i <= steps; i++) {
             spawnDust(lastTrailX + dx * (i / steps), lastTrailY + dy * (i / steps));
           }
@@ -2052,7 +2094,7 @@
       function resize() {
         width = window.innerWidth;
         height = window.innerHeight;
-        dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        dpr = Math.min(window.devicePixelRatio || 1, 1.25);
         canvas.width = Math.round(width * dpr);
         canvas.height = Math.round(height * dpr);
         canvas.style.width = width + "px";
@@ -2110,12 +2152,11 @@
       // setting fillStyle/strokeStyle once and only varying globalAlpha is
       // materially cheaper and avoids extra GC pauses that show up as jank.
       const PARTICLE_COLOR = "rgb(180,240,255)";
-      const LINK_COLOR = "rgb(120,220,240)";
       const DUST_BRIGHT = "rgb(224,246,255)";
       const DUST_DIM = "rgb(140,215,240)";
 
       function draw(now) {
-        if (!running) return;
+        if (!running || scrolling) return;
         raf = requestAnimationFrame(draw);
 
         if (now - lastFrame < settings.frameInterval) return;
@@ -2156,28 +2197,6 @@
           ctx.fill();
         }
 
-        ctx.strokeStyle = LINK_COLOR;
-        ctx.lineWidth = 1;
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const a = particles[i];
-            const b = particles[j];
-            const dx = a.x - b.x;
-            const dy = a.y - b.y;
-            // Cheap squared-distance check first; only pay for sqrt() on
-            // pairs that are actually close enough to draw a line.
-            const distSq = dx * dx + dy * dy;
-
-            if (distSq < settings.linkDistanceSq) {
-              const dist = Math.sqrt(distSq);
-              ctx.globalAlpha = (1 - dist / settings.linkDistance) * 0.13;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
-            }
-          }
-        }
 
         if (trail.length) {
           const step = dt / 16;
@@ -2234,10 +2253,17 @@
         resetParticles();
       }, { passive: true });
 
-      // Scrolling must not interrupt the ambient animation loop.
-      // Keep the listener lightweight and let the existing RAF continue.
+      // During scrolling, hand the frame budget back to the browser; restart shortly after input stops.
       window.addEventListener("scroll", () => {
+        scrolling = true;
         document.body.classList.add("is-scrolling");
+        stop();
+        clearTimeout(scrollResumeTimer);
+        scrollResumeTimer = setTimeout(() => {
+          scrolling = false;
+          document.body.classList.remove("is-scrolling");
+          start();
+        }, 140);
       }, { passive: true });
 
       if (pointerFine) {
@@ -2252,6 +2278,8 @@
           document.body.classList.remove("is-scrolling");
           stop();
         } else {
+          scrolling = false;
+          document.body.classList.remove("is-scrolling");
           start();
         }
       });
