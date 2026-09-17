@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfólio pessoal de João Pedro Moreno Ferreira — Informática para Internet." />
+  <title>João Pedro Moreno Ferreira | Portfólio</title>
+
+  <style>
+    :root {
+      --bg: #0a0d10;
+      --bg-soft: #11161b;
+      --panel: rgba(22, 28, 34, 0.82);
+      --panel-strong: #191f25;
+      --text: #f1f4f5;
+      --muted: #a8b0b8;
+      --line: rgba(255, 255, 255, 0.11);
+      --accent: #22d3ee;
+      --accent-2: #8b5cf6;
+      --glow: rgba(34, 211, 238, 0.25);
+      --max: 1180px;
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      background:
+        radial-gradient(circle at 82% 12%, rgba(139, 92, 246, 0.13), transparent 25%),
+        radial-gradient(circle at 14% 30%, rgba(34, 211, 238, 0.08), transparent 24%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.3;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black 0%, transparent 85%);
+      z-index: -2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #d7dee3;
+      font: 700 0.72rem/1 "SFMono-Regular", Consolas, monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.045);
+      backdrop-filter: blur(6px);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    /* --- Scroll progress bar --- */
+    .scroll-progress {
+      position: fixed;
+      contain: strict;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      z-index: 1000;
+      background: rgba(255,255,255,.035);
+      pointer-events: none;
+    }
+
+    .float-nav {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .float-nav-item {
+      animation: floatNav 5.5s ease-in-out infinite;
+    }
+
+    .float-nav-item:nth-child(1) { animation-delay: 0s; }
+    .float-nav-item:nth-child(2) { animation-delay: -1.4s; }
+    .float-nav-item:nth-child(3) { animation-delay: -2.8s; }
+    .float-nav-item:nth-child(4) { animation-delay: -4.2s; }
+
+    .float-nav-item a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(13,17,21,.86);
+      color: var(--muted);
+      font: 700 .72rem/1 "SFMono-Regular", Consolas, monospace;
+      letter-spacing: .06em;
+      white-space: nowrap;
+      box-shadow: 0 10px 26px rgba(0,0,0,.3);
+      transition: color .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+    }
+
+    .float-nav-item a:hover,
+    .float-nav-item a:focus-visible {
+      color: var(--text);
+      border-color: rgba(34,211,238,.5);
+      background: rgba(19,25,31,.95);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35), 0 0 22px rgba(34,211,238,.22);
+    }
+
+    @keyframes floatNav {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    header {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      padding: 110px 0 90px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      margin: 20px 0 22px;
+      font-size: clamp(3.7rem, 8.5vw, 8rem);
+      line-height: 0.87;
+      letter-spacing: -0.075em;
+      font-weight: 900;
+    }
+
+    .hero h1 .outline {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,.35);
+      text-stroke: 1px rgba(255,255,255,.35);
+    }
+
+    .hero .lead {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.75;
+    }
+
+    .hero .lead strong {
+      color: var(--text);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.035);
+      font-weight: 800;
+      transition: transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(34,211,238,.5);
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    }
+
+    .btn.primary {
+      background: #f3f5f7;
+      color: #0a0d10;
+      border-color: transparent;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      min-height: 450px;
+      display: grid;
+      place-items: center;
+      perspective: 900px;
+    }
+
+
+    .avatar-wrap::before {
+      content: "";
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      border: 1px dashed rgba(255,255,255,.16);
+      animation: spin 22s linear infinite;
+      will-change: transform;
+    }
+
+    .avatar-wrap::after {
+      content: "JOÃO PEDRO";
+      position: absolute;
+      top: 11%;
+      right: 2%;
+      color: rgba(255,255,255,.3);
+      font: 800 0.7rem/1 "SFMono-Regular", Consolas, monospace;
+      letter-spacing: .28em;
+      transform: rotate(90deg);
+    }
+
+    .avatar {
+      position: relative;
+      width: 300px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(255,255,255,.13), transparent 33%),
+        linear-gradient(145deg, #1e252c, #0e1216);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow:
+        0 0 0 1px rgba(34,211,238,.09),
+        0 0 100px rgba(34,211,238,.11),
+        inset 0 0 70px rgba(255,255,255,.035);
+    }
+
+    .avatar::before,
+    .avatar::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: inherit;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .avatar::after {
+      inset: 34px;
+      border-style: dashed;
+      border-color: rgba(34,211,238,.22);
+      animation: spinReverse 18s linear infinite;
+    }
+
+    .avatar-text {
+      position: relative;
+      z-index: 2;
+      transform: rotate(-7deg);
+      transform-origin: center;
+      font-size: 4.6rem;
+      font-weight: 950;
+      letter-spacing: -0.08em;
+      color: #f4f6f8;
+      text-shadow: 0 0 26px rgba(255,255,255,.1);
+    }
+
+    .avatar-badge {
+      position: absolute;
+      right: -8px;
+      bottom: 30px;
+      padding: 11px 14px;
+      border: 1px solid rgba(34,211,238,.26);
+      border-radius: 14px;
+      background: rgba(9,13,16,.95);
+      font: 700 0.72rem/1.4 "SFMono-Regular", Consolas, monospace;
+      color: #dce8ec;
+      box-shadow: 0 12px 35px rgba(0,0,0,.35);
+    }
+
+    .floating-chip {
+      position: absolute;
+      border: 1px solid var(--line);
+      background: rgba(13,17,21,.94);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font: 700 .68rem/1.1 "SFMono-Regular", Consolas, monospace;
+      color: #b9c6cc;
+      box-shadow: 0 12px 30px rgba(0,0,0,.3);
+      animation: float 5.5s ease-in-out infinite;
+    }
+
+    .chip-a { top: 6%; left: 0; animation-delay: -1.2s; }
+    .chip-b { bottom: 8%; left: 9%; animation-delay: -3s; }
+    .chip-c { top: 28%; right: 0; animation-delay: -4s; }
+
+    .orbit-line {
+      position: absolute;
+      width: 640px;
+      height: 260px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 50%;
+      transform: rotate(-24deg);
+      animation: drift 9s ease-in-out infinite;
+      will-change: transform;
+      contain: layout paint;
+    }
+
+    .orbit-line::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      top: 18px;
+      left: 16%;
+      background: var(--accent);
+      box-shadow: 0 0 22px var(--accent);
+    }
+
+    .corner-mark {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border-left: 1px solid rgba(255,255,255,.38);
+      border-top: 1px solid rgba(255,255,255,.38);
+      top: 30px;
+      left: 18px;
+    }
+
+    .corner-mark::after {
+      content: "";
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border-right: 1px solid rgba(255,255,255,.38);
+      border-bottom: 1px solid rgba(255,255,255,.38);
+      top: calc(100vh - 102px);
+      left: calc(100vw - 104px);
+    }
+
+    .section {
+      position: relative;
+      padding: 120px 0;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 50px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(2.7rem, 6vw, 5rem);
+      line-height: .92;
+      letter-spacing: -.065em;
+      font-weight: 900;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 660px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 20px;
+    }
+
+    .about-copy,
+    .facts-panel,
+    .deliveries-shell,
+    .contact-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(25,31,37,.88), rgba(13,17,21,.9));
+      box-shadow: 0 25px 80px rgba(0,0,0,.22);
+    }
+
+    /* Panels highlighted in the portfolio: blend more naturally into the page background. */
+    .about-copy,
+    .deliveries-shell,
+    .contact-card {
+      background: linear-gradient(145deg, rgba(25,31,37,.62), rgba(13,17,21,.68));
+    }
+
+    .about-copy {
+      padding: 36px;
+    }
+
+    .about-copy p {
+      color: #c6cdd2;
+      font-size: 1.06rem;
+      line-height: 1.95;
+    }
+
+    .about-copy p + p {
+      margin-top: 20px;
+    }
+
+    .facts-panel {
+      padding: 24px;
+    }
+
+    .fact {
+      padding: 20px 4px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .fact:last-child {
+      border-bottom: 0;
+    }
+
+    .fact small {
+      display: block;
+      margin-bottom: 7px;
+      color: #85919a;
+      font: 700 .7rem/1 "SFMono-Regular", Consolas, monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .fact strong {
+      font-size: 1.05rem;
+      line-height: 1.45;
+    }
+
+    .mini-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .mini-tag {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(255,255,255,.03);
+      color: #dbe1e5;
+      font-size: .82rem;
+    }
+
+    .deliveries-shell {
+      padding: 26px;
+    }
+
+    .repo-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.025);
+      font: 700 .77rem/1.3 "SFMono-Regular", Consolas, monospace;
+      color: #bbc3c8;
+    }
+
+    .repo-bar .path {
+      overflow-wrap: anywhere;
+    }
+
+    .repo-bar .dot {
+      width: 9px;
+      height: 9px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: #45e69b;
+      box-shadow: 0 0 14px #45e69b;
+    }
+
+    /* --- Entregas em constelação --- */
+    .constellation {
+      position: relative;
+      display: grid;
+      gap: 8px;
+      padding: 8px 10px 6px;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    /* A antiga linha central virou conexões diagonais entre os planetas. */
+    .constellation::before {
+      content: "";
+      position: absolute;
+      inset: 20px 0 20px;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(34,211,238,.14), transparent 14%),
+        radial-gradient(circle at 82% 38%, rgba(139,92,246,.12), transparent 16%),
+        radial-gradient(circle at 30% 72%, rgba(34,211,238,.10), transparent 15%);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .constellation-item:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: clamp(110px, 16vw, 180px);
+      height: 1px;
+      background: linear-gradient(90deg, rgba(34,211,238,.46), rgba(139,92,246,.24));
+      box-shadow: 0 0 10px rgba(34,211,238,.16);
+      transform-origin: left center;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .constellation-item:nth-child(odd)::before {
+      left: 42%;
+      transform: rotate(51deg);
+    }
+
+    .constellation-item:nth-child(even)::before {
+      left: 58%;
+      transform: rotate(129deg);
+    }
+
+    .constellation-item {
+      position: relative;
+      min-height: 190px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 78px minmax(0, 1fr);
+      align-items: center;
+    }
+
+    .constellation-item:nth-child(odd) .constellation-card {
+      grid-column: 1;
+      justify-self: end;
+      text-align: right;
+    }
+
+    .constellation-item:nth-child(even) .constellation-card {
+      grid-column: 3;
+      justify-self: start;
+      text-align: left;
+    }
+
+    .constellation-card {
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      width: min(100%, 450px);
+      padding: 22px 24px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background:
+        linear-gradient(145deg, rgba(25,31,37,.86), rgba(10,14,18,.92));
+      box-shadow: 0 18px 50px rgba(0,0,0,.22), inset 0 0 35px rgba(255,255,255,.018);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transition: transform .32s cubic-bezier(.2,.8,.2,1), border-color .32s ease, box-shadow .32s ease;
+    }
+
+    .constellation-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(34,211,238,.10), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,.028), transparent 58%);
+      opacity: .55;
+      transition: opacity .32s ease;
+      pointer-events: none;
+    }
+
+    .constellation-item:nth-child(odd) .constellation-card::after,
+    .constellation-item:nth-child(even) .constellation-card::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 42px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(34,211,238,.0), rgba(34,211,238,.55));
+      box-shadow: 0 0 12px rgba(34,211,238,.22);
+    }
+
+    .constellation-item:nth-child(odd) .constellation-card::after {
+      right: -42px;
+    }
+
+    .constellation-item:nth-child(even) .constellation-card::after {
+      left: -42px;
+      transform: rotate(180deg);
+    }
+
+    .constellation-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(34,211,238,.52);
+      box-shadow:
+        0 22px 62px rgba(0,0,0,.30),
+        0 0 0 1px rgba(34,211,238,.10),
+        0 0 30px rgba(34,211,238,.16),
+        inset 0 0 28px rgba(34,211,238,.035);
+    }
+
+    .constellation-card:hover::before {
+      opacity: 1;
+    }
+
+    .constellation-planet {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: center;
+      position: relative;
+      z-index: 2;
+      width: 36px;
+      height: 36px;
+      display: block;
+      border-radius: 50%;
+      isolation: isolate;
+      transform-origin: center center;
+      will-change: transform;
+      box-shadow: 0 0 10px rgba(34,211,238,.18), 0 0 28px rgba(139,92,246,.12);
+      animation: planetOrbitSpin 13s linear infinite;
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+    .constellation-planet::before {
+      content: "";
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(circle, rgba(34,211,238,.16), transparent 67%);
+    }
+
+    .constellation-planet::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      background: linear-gradient(120deg, rgba(255,255,255,.42), transparent 34%, rgba(0,0,0,.24) 78%);
+      mix-blend-mode: screen;
+      opacity: .66;
+    }
+
+    /* Mercúrio */
+    .constellation-item:nth-child(1) .constellation-planet {
+      background:
+        radial-gradient(circle at 34% 28%, rgba(255,255,255,.35) 0 7%, transparent 8%),
+        radial-gradient(circle at 64% 62%, rgba(40,40,40,.24) 0 11%, transparent 12%),
+        radial-gradient(circle at 48% 42%, #b9bec2 0, #777d81 58%, #3b4146 100%);
+      box-shadow: 0 0 11px rgba(190,198,205,.25), 0 0 26px rgba(120,130,140,.12);
+    }
+
+    /* Terra */
+    .constellation-item:nth-child(2) .constellation-planet {
+      background:
+        radial-gradient(circle at 30% 28%, #59d7ff 0 6%, transparent 7%),
+        radial-gradient(circle at 58% 62%, #62d96f 0 12%, transparent 13%),
+        radial-gradient(circle at 38% 57%, #2a8f5e 0 8%, transparent 9%),
+        radial-gradient(circle at 50% 46%, #53c7f0 0, #246cc4 55%, #122b68 100%);
+      box-shadow: 0 0 12px rgba(74,180,255,.38), 0 0 28px rgba(40,120,220,.14);
+    }
+
+    /* Marte */
+    .constellation-item:nth-child(3) .constellation-planet {
+      background:
+        radial-gradient(circle at 34% 30%, rgba(255,205,160,.25) 0 7%, transparent 8%),
+        radial-gradient(circle at 63% 63%, rgba(95,30,20,.28) 0 13%, transparent 14%),
+        radial-gradient(circle at 48% 44%, #e56f4b 0, #a43d29 58%, #4a1711 100%);
+      box-shadow: 0 0 11px rgba(232,105,75,.30), 0 0 28px rgba(170,55,35,.13);
+    }
+
+    /* Júpiter */
+    .constellation-item:nth-child(4) .constellation-planet {
+      background:
+        radial-gradient(ellipse at 66% 57%, rgba(164,74,42,.72) 0 10%, transparent 11%),
+        repeating-linear-gradient(0deg, #ead3b2 0 5px, #b78662 5px 8px, #e7caa5 8px 12px, #9f7153 12px 15px);
+      box-shadow: 0 0 12px rgba(220,174,125,.28), 0 0 28px rgba(190,140,95,.12);
+    }
+
+    /* Saturno */
+    .constellation-item:nth-child(5) .constellation-planet {
+      background: linear-gradient(0deg, #a87943, #e3bf84 45%, #f1d7a5 100%);
+      box-shadow: 0 0 12px rgba(236,194,128,.28), 0 0 28px rgba(210,160,95,.12);
+    }
+
+    .constellation-item:nth-child(5) .constellation-planet::before {
+      inset: 5px -17px;
+      border: 3px solid rgba(214,181,132,.68);
+      border-top-color: rgba(239,216,175,.8);
+      border-bottom-color: rgba(148,107,72,.45);
+      background: transparent;
+      transform: rotate(-17deg);
+      z-index: -1;
+      box-shadow: 0 0 7px rgba(214,181,132,.12);
+    }
+
+    .constellation-planet:hover {
+      transform: scale(1.16);
+      box-shadow: 0 0 15px rgba(34,211,238,.28), 0 0 30px rgba(139,92,246,.18);
+    }
+
+    .constellation-item:nth-child(odd) {
+      transform: translateX(-3%);
+    }
+
+    .constellation-item:nth-child(even) {
+      transform: translateX(3%);
+    }
+
+    @keyframes planetOrbitSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .constellation-item:nth-child(odd) {
+      transform: translateX(-3%);
+    }
+
+    .constellation-item:nth-child(even) {
+      transform: translateX(3%);
+    }
+
+    /* Nave alienígena clássica: percorre as 5 estrelas em ida e volta. */
+    .constellation-ufo {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 42px;
+      height: 30px;
+      z-index: 8;
+      pointer-events: none;
+      opacity: 0;
+      will-change: transform, opacity;
+      contain: layout paint style;
+      transform-origin: center center;
+      filter: drop-shadow(0 0 6px rgba(34,211,238,.28));
+    }
+
+    .constellation-ufo svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+      animation: ufoHover 2.2s ease-in-out infinite;
+    }
+
+    .ufo-trail {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 48px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(34,211,238,.12), rgba(139,92,246,.44));
+      transform-origin: 100% 50%;
+      transform: translate3d(-100%, -50%, 0) rotate(var(--trail-angle, 180deg)) scaleX(var(--trail-scale, 0));
+      opacity: .5;
+      will-change: transform, opacity;
+      transition: opacity .25s ease;
+      pointer-events: none;
+    }
+
+    .constellation-ufo.flying .ufo-trail {
+      opacity: .62;
+    }
+
+    .ufo-beam {
+      transform-origin: 21px 21px;
+      animation: ufoBeam 1.35s ease-in-out infinite alternate;
+    }
+
+    .ufo-light {
+      animation: ufoBlink .9s ease-in-out infinite alternate;
+    }
+
+    @keyframes ufoHover {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-2px) rotate(-1deg); }
+    }
+
+    @keyframes ufoBeam {
+      from { opacity: .08; transform: scaleY(.72); }
+      to { opacity: .22; transform: scaleY(1); }
+    }
+
+    @keyframes ufoBlink {
+      from { opacity: .5; }
+      to { opacity: 1; }
+    }
+
+    .constellation-item:hover {
+      z-index: 3;
+    }
+
+    .constellation-card .card-index {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 10px;
+      color: #d9e0e4;
+      font: 800 .68rem/1 "SFMono-Regular", Consolas, monospace;
+      background: rgba(255,255,255,.03);
+      margin-bottom: 16px;
+    }
+
+    .constellation-item:nth-child(odd) .card-index {
+      margin-left: auto;
+    }
+
+    .constellation-card h3 {
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      line-height: 1.05;
+      letter-spacing: -.035em;
+    }
+
+    .constellation-card .date {
+      margin-top: 9px;
+      color: var(--accent);
+      font: 700 .66rem/1.3 "SFMono-Regular", Consolas, monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .constellation-card p {
+      margin-top: 14px;
+      color: #aeb8be;
+      font-size: .92rem;
+      line-height: 1.68;
+    }
+
+    .constellation-link {
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #e9eef1;
+      font: 800 .78rem/1 "SFMono-Regular", Consolas, monospace;
+    }
+
+    .constellation-link span {
+      transition: transform .25s ease;
+    }
+
+    .constellation-item:nth-child(odd) .constellation-link {
+      justify-content: flex-end;
+    }
+
+    .constellation-card:hover .constellation-link span {
+      transform: translateX(4px);
+    }
+
+    @keyframes galaxySpin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes galaxyPulse {
+      0%, 100% { transform: scale(.92); opacity: .76; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    /* --- Botão "Ver mais" das entregas --- */
+    .delivery-item.is-hidden-delivery {
+      display: none;
+    }
+
+    .deliveries-toggle-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0 2px;
+    }
+
+    .deliveries-toggle {
+      appearance: none;
+      border: 1px solid rgba(34,211,238,.28);
+      border-radius: 999px;
+      background:
+        linear-gradient(145deg, rgba(34,211,238,.09), rgba(139,92,246,.07)),
+        rgba(255,255,255,.025);
+      color: #eafcff;
+      padding: 11px 18px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font: 800 .74rem/1 "SFMono-Regular", Consolas, monospace;
+      letter-spacing: .05em;
+      cursor: pointer;
+      box-shadow:
+        0 10px 28px rgba(0,0,0,.20),
+        0 0 18px rgba(34,211,238,.08);
+      transition:
+        transform .25s ease,
+        border-color .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+    }
+
+    .deliveries-toggle:hover,
+    .deliveries-toggle:focus-visible {
+      transform: translateY(-3px);
+      border-color: rgba(34,211,238,.58);
+      background:
+        linear-gradient(145deg, rgba(34,211,238,.14), rgba(139,92,246,.10)),
+        rgba(255,255,255,.035);
+      box-shadow:
+        0 14px 34px rgba(0,0,0,.26),
+        0 0 26px rgba(34,211,238,.16);
+      outline: none;
+    }
+
+    .deliveries-toggle .toggle-arrow {
+      display: inline-block;
+      transition: transform .25s ease;
+    }
+
+    .deliveries-toggle[aria-expanded="true"] .toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    .terminal-note {
+      margin-top: 18px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      border: 1px dashed rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      font: 700 .7rem/1.55 "SFMono-Regular", Consolas, monospace;
+      color: #8f9ba3;
+    }
+
+    .terminal-note strong {
+      color: #d7dfe4;
+    }
+
+    footer {
+      padding: 30px 0 50px;
+    }
+
+    .contact-card {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end;
+    }
+
+    .contact-card h3 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: .95;
+      letter-spacing: -.055em;
+    }
+
+    .contact-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 18px;
+      color: #b1bbc1;
+      font-size: .95rem;
+    }
+
+    .contact-meta a {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .github {
+      min-width: 175px;
+      min-height: 50px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: rgba(255,255,255,.05);
+      font-weight: 850;
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .github:hover {
+      transform: translateY(-3px);
+      border-color: rgba(34,211,238,.45);
+    }
+
+    .copyright {
+      margin-top: 16px;
+      color: #68747d;
+      font: 700 .66rem/1.5 "SFMono-Regular", Consolas, monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .constellation-card.reveal {
+      transition: opacity .72s ease, transform .72s cubic-bezier(.2,.8,.2,1), border-color .32s ease, box-shadow .32s ease;
+    }
+
+    .glow-orb {
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(34,211,238,.14), transparent 62%);
+      animation: breathe 7s ease-in-out infinite;
+      will-change: transform;
+      contain: layout paint;
+    }
+
+    .orb-a { top: 25%; right: -180px; }
+    .orb-b { left: -210px; bottom: 9%; background: radial-gradient(circle, rgba(139,92,246,.09), transparent 65%); animation-delay: -2.5s; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .45; transform: scale(.8); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spinReverse {
+      to { transform: rotate(-360deg); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-9px) rotate(1deg); }
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: rotate(-24deg) translate3d(0,0,0); }
+      50% { transform: rotate(-20deg) translate3d(14px,-8px,0); }
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: .9; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+
+    /* --- Animated background --- */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      overflow: hidden;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 10%, rgba(34,211,238,.045), transparent 34%),
+        radial-gradient(circle at 78% 70%, rgba(139,92,246,.055), transparent 32%);
+    }
+
+    #particle-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .72;
+    }
+
+    .ambient-grid {
+      position: absolute;
+      inset: -20%;
+      opacity: .22;
+      background-image:
+        linear-gradient(rgba(34,211,238,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,238,.045) 1px, transparent 1px);
+      background-size: 55px 55px;
+      transform: perspective(700px) rotateX(68deg) translateY(14%);
+      transform-origin: center;
+      animation: gridDrift 18s linear infinite;
+      will-change: transform;
+      contain: layout paint;
+    }
+
+    .scan-beam {
+      position: absolute;
+      width: 70vw;
+      height: 2px;
+      left: -15vw;
+      opacity: .16;
+      background: linear-gradient(90deg, transparent, rgba(34,211,238,.9), transparent);
+      box-shadow: 0 0 22px rgba(34,211,238,.3);
+      transform: rotate(-18deg);
+      will-change: transform;
+      contain: layout paint;
+    }
+
+    .beam-a {
+      top: 30%;
+      animation: beamSweep 11s ease-in-out infinite;
+    }
+
+    .beam-b {
+      top: 68%;
+      opacity: .11;
+      animation: beamSweep 15s ease-in-out infinite reverse;
+    }
+
+    @keyframes gridDrift {
+      0%   { transform: perspective(700px) rotateX(68deg) translate3d(0, 14%, 0); }
+      50%  { transform: perspective(700px) rotateX(68deg) translate3d(-2%, 9%, 0); }
+      100% { transform: perspective(700px) rotateX(68deg) translate3d(0, 14%, 0); }
+    }
+
+    @keyframes beamSweep {
+      0%, 100% { transform: translate3d(-10vw, -10vh, 0) rotate(-18deg); }
+      50% { transform: translate3d(75vw, 28vh, 0) rotate(-18deg); }
+    }
+
+    /* --- Scroll performance helpers --- */
+    .section,
+    footer {
+      contain: layout paint style;
+    }
+
+    /* Keep decorative motion alive while scrolling; the canvas and UFO each
+       throttle themselves independently when that is actually beneficial. */
+
+    .constellation {
+      contain: layout paint;
+    }
+
+    .constellation-ufo,
+    .constellation-ufo svg,
+    .ufo-trail {
+      backface-visibility: hidden;
+      transform-style: flat;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .about-grid,
+      .section-heading {
+        grid-template-columns: 1fr;
+      }
+      .avatar-wrap {
+        min-height: 380px;
+        order: -1;
+      }
+      .hero h1 {
+        max-width: 780px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .float-nav {
+        left: 50%;
+        right: auto;
+        top: auto;
+        bottom: 16px;
+        transform: translateX(-50%);
+        flex-direction: row;
+        gap: 8px;
+      }
+
+      .float-nav-item a {
+        padding: 8px 12px;
+        font-size: 0.66rem;
+      }
+
+      @keyframes floatNav {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+
+      .container {
+        width: min(calc(100% - 24px), var(--max));
+      }
+
+      header {
+        min-height: auto;
+      }
+
+      .hero {
+        padding: 76px 0 60px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.2rem, 19vw, 5.2rem);
+      }
+
+      .hero .lead {
+        line-height: 1.62;
+      }
+
+      .avatar-wrap {
+        min-height: 320px;
+      }
+
+      .avatar-wrap::before {
+        width: 290px;
+        height: 290px;
+      }
+
+      .avatar {
+        width: 220px;
+      }
+
+      .avatar-text {
+        font-size: 3.4rem;
+      }
+
+      .floating-chip {
+        font-size: .6rem;
+      }
+
+
+      .chip-a { left: 2%; top: 2%; }
+      .chip-b { left: 3%; bottom: 4%; }
+      .chip-c { right: 2%; top: 23%; }
+
+      .section {
+        padding: 82px 0;
+      }
+
+      .section-heading {
+        gap: 24px;
+      }
+
+      .about-copy,
+      .facts-panel,
+      .deliveries-shell,
+      .contact-card {
+        border-radius: 18px;
+      }
+
+      .about-copy {
+        padding: 24px;
+      }
+
+      .constellation-ufo {
+        width: 34px;
+        height: 25px;
+      }
+
+      .constellation {
+        gap: 0;
+        padding: 8px 2px 4px 14px;
+      }
+
+      .constellation::before {
+        inset: 24px auto 24px 17px;
+        width: 1px;
+        background: linear-gradient(180deg, transparent, rgba(34,211,238,.46) 10%, rgba(139,92,246,.34) 50%, rgba(34,211,238,.46) 90%, transparent);
+        box-shadow: 0 0 18px rgba(34,211,238,.16);
+      }
+
+      .constellation-item:not(:last-child)::before {
+        display: none;
+      }
+
+      .constellation-item,
+      .constellation-item:nth-child(odd),
+      .constellation-item:nth-child(even) {
+        min-height: auto;
+        display: grid;
+        transform: none;
+        grid-template-columns: 44px minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+        padding: 13px 0;
+      }
+
+      .constellation-planet {
+        grid-column: 1 !important;
+        grid-row: 1;
+        width: 24px;
+        height: 24px;
+        margin-top: 22px;
+      }
+
+      .constellation-planet:hover {
+        transform: scale(1.08);
+      }
+
+      .constellation-planet::after {
+        display: none;
+      }
+
+      .constellation-item:nth-child(odd) .constellation-card,
+      .constellation-item:nth-child(even) .constellation-card {
+        grid-column: 2;
+        grid-row: 1;
+        width: 100%;
+        justify-self: stretch;
+        text-align: left;
+      }
+
+      .constellation-item:nth-child(odd) .card-index {
+        margin-left: 0;
+      }
+
+      .constellation-item:nth-child(odd) .constellation-link {
+        justify-content: flex-start;
+      }
+
+      .constellation-item:nth-child(odd) .constellation-card::after,
+      .constellation-item:nth-child(even) .constellation-card::after {
+        left: -42px;
+        right: auto;
+        transform: none;
+        width: 42px;
+        background: linear-gradient(90deg, rgba(34,211,238,.55), rgba(34,211,238,0));
+      }
+
+      .constellation-card {
+        padding: 20px 18px;
+        border-radius: 16px;
+        z-index: 2;
+      }
+
+      .deliveries-shell {
+        padding: 14px;
+      }
+
+      .deliveries-toggle {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .repo-bar {
+        align-items: flex-start;
+      }
+
+      .contact-card {
+        grid-template-columns: 1fr;
+        padding: 24px;
+      }
+
+      .github {
+        width: 100%;
+      }
+
+      .corner-mark,
+      .orbit-line {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .ambient-grid,
+      .scan-beam,
+      #particle-canvas,
+      .constellation-ufo,
+      .constellation-ufo svg,
+      .ufo-beam,
+      .ufo-light,
+      .space-decor * {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <nav class="float-nav" aria-label="Navegação principal">
+    <div class="float-nav-item"><a href="#inicio">Início</a></div>
+    <div class="float-nav-item"><a href="#sobre">Sobre</a></div>
+    <div class="float-nav-item"><a href="#entregas">Entregas</a></div>
+    <div class="float-nav-item"><a href="#contato">Contato</a></div>
+  </nav>
+
+  <div class="ambient-bg" aria-hidden="true">
+    <canvas id="particle-canvas"></canvas>
+    <div class="ambient-grid"></div>
+    <div class="scan-beam beam-a"></div>
+    <div class="scan-beam beam-b"></div>
+
+  </div>
+  <div class="glow-orb orb-a"></div>
+  <div class="glow-orb orb-b"></div>
+  <div class="corner-mark"></div>
+
+  <header id="inicio">
+    <div class="container hero">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">portfólio / informatica-para-internet</span>
+
+          <h1>
+            JOÃO PEDRO
+            <br />
+            <span class="outline">MORENO</span>
+          </h1>
+
+          <p class="lead">
+            <strong>15 anos, Varginha.</strong> Sou estudante de Informática para Internet,
+            dedicado a aprender tecnologia, criar soluções e transformar curiosidade em projetos.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#entregas">Ver minhas entregas ↘</a>
+            <a class="btn" href="#sobre">Sobre mim</a>
+          </div>
+        </div>
+
+        <div class="avatar-wrap">
+          <div class="orbit-line"></div>
+
+          <span class="floating-chip chip-a">const foco = "TI";</span>
+          <span class="floating-chip chip-b">git commit → futuro</span>
+          <span class="floating-chip chip-c">&lt;/&gt; criando ideias</span>
+
+          <div class="avatar">
+            <div class="avatar-text">JP</div>
+            <div class="avatar-badge">
+              status: aprendendo<br />
+              área: tecnologia
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="sobre">
+      <div class="container">
+        <div class="section-heading reveal">
+          <h2>Sobre<br />mim</h2>
+          <p>
+            Um pouco de quem eu sou, o que me motiva e a direção que quero seguir dentro da tecnologia.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <article class="about-copy reveal">
+            <p>
+              Meu nome é <strong>João Pedro Moreno Ferreira</strong>, tenho 15 anos e moro em Varginha.
+              Atualmente estudo o curso técnico de <strong>Informática para Internet</strong>, uma área que
+              combina criatividade, tecnologia e resolução de problemas. Gosto de aprender como as coisas
+              funcionam e de usar a tecnologia para transformar ideias em algo concreto.
+            </p>
+
+            <p>
+              Três características que me definem são <strong>dedicação</strong>, <strong>facilidade com tecnologia</strong>
+              e o valor que dou a <strong>ficar com minha família</strong>. Para o futuro, quero trabalhar na
+              <strong>área de TI</strong>, continuar desenvolvendo minhas habilidades e construir projetos
+              que me ajudem a crescer profissionalmente.
+            </p>
+          </article>
+
+          <aside class="facts-panel reveal">
+            <div class="fact">
+              <small>idade / local</small>
+              <strong>15 anos · Varginha, MG</strong>
+            </div>
+
+            <div class="fact">
+              <small>curso técnico</small>
+              <strong>Informática para Internet</strong>
+            </div>
+
+            <div class="fact">
+              <small>o que me define</small>
+              <div class="mini-tags">
+                <span class="mini-tag">Dedicado</span>
+                <span class="mini-tag">Tecnologia</span>
+                <span class="mini-tag">Família</span>
+              </div>
+            </div>
+
+            <div class="fact">
+              <small>próximo passo</small>
+              <strong>Trabalhar na área de TI</strong>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="entregas">
+      <div class="container">
+        <div class="section-heading reveal">
+          <h2>Minhas<br />entregas</h2>
+          <p>
+            Cinco etapas do módulo organizadas como um pequeno repositório: cada pasta representa uma
+            experiência, um aprendizado e uma parte do meu caminho.
+          </p>
+        </div>
+
+        <div class="deliveries-shell reveal">
+          <div class="repo-bar">
+            <span class="path">portfolio-mundo-trabalho/ → index.html → entregas/</span>
+            <span class="dot" title="estrutura pronta"></span>
+          </div>
+
+          <div class="constellation" aria-label="Constelação das minhas entregas">
+            <div class="constellation-ufo" aria-hidden="true">
+              <span class="ufo-trail"></span>
+              <svg viewBox="0 0 42 30" role="presentation">
+                <defs>
+                  <linearGradient id="ufoHull" x1="0" x2="1" y1="0" y2="1">
+                    <stop offset="0" stop-color="#f7ffff"/>
+                    <stop offset=".58" stop-color="#9eeaf2"/>
+                    <stop offset="1" stop-color="#5aa9c9"/>
+                  </linearGradient>
+                  <linearGradient id="ufoBeamGradient" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0" stop-color="#22d3ee" stop-opacity=".02"/>
+                    <stop offset="1" stop-color="#8b5cf6" stop-opacity=".22"/>
+                  </linearGradient>
+                </defs>
+                <path class="ufo-beam" d="M12 20h18l-4.3 9H16.3Z" fill="url(#ufoBeamGradient)"/>
+                <ellipse cx="21" cy="19" rx="15" ry="5" fill="#0a0d10" stroke="rgba(34,211,238,.7)" stroke-width="1"/>
+                <path d="M12.5 17.7c1.4-5.1 5-7.5 8.5-7.5s7.1 2.4 8.5 7.5H12.5Z" fill="#8b5cf6" stroke="#c8fbff" stroke-width=".85"/>
+                <ellipse cx="21" cy="16.8" rx="5.5" ry="2.25" fill="#dffcff" opacity=".8"/>
+                <ellipse cx="21" cy="20" rx="11" ry="3" fill="url(#ufoHull)" opacity=".95"/>
+                <circle class="ufo-light" cx="13" cy="20.2" r="1.35" fill="#22d3ee"/>
+                <circle class="ufo-light" cx="21" cy="21.1" r="1.35" fill="#8b5cf6"/>
+                <circle class="ufo-light" cx="29" cy="20.2" r="1.35" fill="#22d3ee"/>
+              </svg>
+            </div>
+            <article class="constellation-item">
+              <div class="constellation-card reveal">
+                <div class="card-index">01</div>
+                <h3>Capa do Meu Álbum</h3>
+                <div class="date">Data: editar</div>
+                <p>Aprendi a organizar uma ideia visual, definir identidade e apresentar um projeto com mais personalidade.</p>
+                <a class="constellation-link" href="02-capa-do-album/">abrir pasta <span>↗</span></a>
+              </div>
+              <span class="constellation-planet" data-planet="mercurio" aria-label="Mercúrio" aria-hidden="true"></span>
+            </article>
+
+            <article class="constellation-item">
+              <div class="constellation-card reveal">
+                <div class="card-index">02</div>
+                <h3>Dashboard Quem Sou Eu</h3>
+                <div class="date">Data: editar</div>
+                <p>Aprendi a transformar informações sobre mim em uma apresentação visual clara, organizada e fácil de explorar.</p>
+                <a class="constellation-link" href="03-dashboard/">abrir pasta <span>↗</span></a>
+              </div>
+              <span class="constellation-planet" data-planet="terra" aria-label="Terra" aria-hidden="true"></span>
+            </article>
+
+            <article class="constellation-item delivery-item is-hidden-delivery" data-delivery-card="3" hidden>
+              <div class="constellation-card reveal">
+                <div class="card-index">03</div>
+                <h3>Árvore das Profissões</h3>
+                <div class="date">Data: editar</div>
+                <p>Aprendi a conectar habilidades, interesses e possibilidades profissionais para pensar melhor sobre meu futuro.</p>
+                <a class="constellation-link" href="04-arvore-profissoes/">abrir pasta <span>↗</span></a>
+              </div>
+              <span class="constellation-planet" data-planet="marte" aria-label="Marte" aria-hidden="true"></span>
+            </article>
+
+            <article class="constellation-item delivery-item is-hidden-delivery" data-delivery-card="4" hidden>
+              <div class="constellation-card reveal">
+                <div class="card-index">04</div>
+                <h3>Âncoras de Carreira</h3>
+                <div class="date">Data: editar</div>
+                <p>Aprendi a reconhecer valores e preferências que podem orientar minhas escolhas acadêmicas e profissionais.</p>
+                <a class="constellation-link" href="05-ancoras-manifesto/">abrir pasta <span>↗</span></a>
+              </div>
+              <span class="constellation-planet" data-planet="jupiter" aria-label="Júpiter" aria-hidden="true"></span>
+            </article>
+
+            <article class="constellation-item delivery-item is-hidden-delivery" data-delivery-card="5" hidden>
+              <div class="constellation-card reveal">
+                <div class="card-index">05</div>
+                <h3>O Manifesto</h3>
+                <div class="date">Data: editar</div>
+                <p>Aprendi a colocar objetivos e princípios em palavras, construindo uma visão mais clara de quem quero ser no futuro.</p>
+                <a class="constellation-link" href="05-ancoras-manifesto/">abrir pasta <span>↗</span></a>
+              </div>
+              <span class="constellation-planet" data-planet="saturno" aria-label="Saturno" aria-hidden="true"></span>
+            </article>
+          </div>
+
+          <div class="deliveries-toggle-wrap">
+            <button
+              class="deliveries-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="entregas"
+            >
+              <span class="toggle-label">Ver mais entregas</span>
+              <span class="toggle-arrow" aria-hidden="true">↓</span>
+            </button>
+          </div>
+
+          <div class="terminal-note">
+            <strong>constelação:</strong> cada planeta representa uma etapa do meu caminho e cada conexão leva à pasta correspondente do repositório.
+            Troque apenas as datas e os links finais quando o conteúdo estiver publicado.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contato">
+    <div class="container">
+      <div class="contact-card reveal">
+        <div>
+          <span class="eyebrow">contato / vamos conectar</span>
+          <h3>Construindo meu caminho<br />na tecnologia.</h3>
+
+          <div class="contact-meta">
+            <span>Varginha · MG</span>
+            <span>•</span>
+            <a href="mailto:joaopedro.mofe@gmail.com">joaopedro.mofe@gmail.com</a>
+          </div>
+
+          <div class="copyright">
+            © 2026 João Pedro Moreno Ferreira · Portfólio pessoal
+          </div>
+        </div>
+
+        <a
+          class="github"
+          href="https://github.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Abrir GitHub"
+        >
+          GitHub ↗
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll progress: updates only through requestAnimationFrame for smooth scrolling.
+    (() => {
+      const bar = document.querySelector(".scroll-progress");
+      if (!bar) return;
+
+      let ticking = false;
+
+      function updateScrollProgress() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const amount = scrollable > 0 ? Math.min(scrollTop / scrollable, 1) : 0;
+        bar.style.setProperty("--progress", amount);
+        bar.style.transform = `scaleX(${amount})`;
+        ticking = false;
+      }
+
+      // Use the pseudo-element's computed target through a CSS variable fallback.
+      bar.style.setProperty("--progress", 0);
+      const fill = document.createElement("span");
+      fill.setAttribute("aria-hidden", "true");
+      fill.style.cssText = `
+        position:absolute;
+        inset:0 auto 0 0;
+        width:100%;
+        transform:scaleX(0);
+        transform-origin:left center;
+        background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent));
+        box-shadow:0 0 14px rgba(34,211,238,.5);
+        will-change:transform;
+      `;
+      bar.appendChild(fill);
+
+      function render() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const amount = scrollable > 0 ? Math.min(scrollTop / scrollable, 1) : 0;
+        fill.style.transform = `scaleX(${amount})`;
+        ticking = false;
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(render);
+        }
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+      render();
+    })();
+
+    // Nave alienígena: planeta 01→02→03→04→05→04→03→02→01, repetindo o ciclo.
+    // Movimento suave e mais ágil, com pouso lateral e sem saltos no fechamento do ciclo.
+    (() => {
+      const constellation = document.querySelector(".constellation");
+      const ufo = document.querySelector(".constellation-ufo");
+      const getVisiblePlanets = () =>
+        Array.from(document.querySelectorAll(".constellation-planet"))
+          .filter((planet) => {
+            const item = planet.closest(".constellation-item");
+            return item && !item.hidden;
+          });
+
+      let planets = getVisiblePlanets();
+      if (!constellation || !ufo || planets.length < 2) return;
+
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const forward = planets.map((_, i) => i);
+      const routeIndexes = forward.concat(forward.slice(1, -1).reverse(), [0]);
+      const travelTotal = 46000;
+      const landingPause = 1200;
+      const sideGap = 22;
+
+      let route = [];
+      let timeline = [];
+      let totalCycle = 0;
+      let raf = 0;
+      let startTime = 0;
+      let segmentIndex = 0;
+      let running = false;
+      let visible = true;
+
+      function rebuildPath() {
+        const base = constellation.getBoundingClientRect();
+        const ufoW = ufo.offsetWidth || 42;
+        const ufoH = ufo.offsetHeight || 30;
+
+        route = planets.map((planet) => {
+          const r = planet.getBoundingClientRect();
+          const item = planet.closest(".constellation-item");
+          const card = item ? item.querySelector(".constellation-card") : null;
+          const centerX = r.left - base.left + r.width / 2;
+          const centerY = r.top - base.top + r.height / 2;
+          const cardRect = card ? card.getBoundingClientRect() : null;
+          const cardCenterX = cardRect ? cardRect.left - base.left + cardRect.width / 2 : centerX;
+          // Ao pousar, a nave fica no lado oposto da caixa de texto.
+          const side = cardCenterX < centerX ? 1 : -1;
+          return {
+            x: centerX + side * (r.width / 2 + sideGap + ufoW / 2),
+            y: centerY - ufoH / 2
+          };
+        });
+
+        const fullRoute = routeIndexes.map((i) => route[i]);
+        const distances = [];
+        let distanceTotal = 0;
+
+        for (let i = 1; i < fullRoute.length; i++) {
+          const dx = fullRoute[i].x - fullRoute[i - 1].x;
+          const dy = fullRoute[i].y - fullRoute[i - 1].y;
+          const distance = Math.hypot(dx, dy);
+          distances.push(distance);
+          distanceTotal += distance;
+        }
+
+        const travelBudget = Math.max(travelTotal - landingPause * distances.length, 1);
+        const durations = distances.map((distance) =>
+          travelBudget * (distanceTotal ? distance / distanceTotal : 1 / distances.length)
+        );
+
+        timeline = [];
+        totalCycle = 0;
+        for (let i = 0; i < durations.length; i++) {
+          const from = fullRoute[i];
+          const to = fullRoute[i + 1];
+          const travelDuration = durations[i];
+          timeline.push({ type: "travel", from, to, duration: travelDuration, start: totalCycle, angle: Math.atan2(to.y - from.y, to.x - from.x) * 180 / Math.PI });
+          totalCycle += travelDuration;
+          timeline.push({ type: "pause", point: to, duration: landingPause, start: totalCycle });
+          totalCycle += landingPause;
+        }
+
+        ufo.style.opacity = "1";
+        const first = fullRoute[0];
+        if (first) ufo.style.transform = `translate3d(${first.x}px,${first.y}px,0)`;
+        segmentIndex = 0;
+      }
+
+      function ease(t) {
+        return t < .5
+          ? 4 * t * t * t
+          : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function render(now) {
+        if (!running || reduceMotion || !visible || !route.length || !timeline.length) return;
+
+        const elapsed = (now - startTime) % totalCycle;
+        while (segmentIndex < timeline.length - 1 && elapsed >= timeline[segmentIndex].start + timeline[segmentIndex].duration) {
+          segmentIndex++;
+        }
+        const segment = timeline[segmentIndex];
+
+        if (segment.type === "pause") {
+          ufo.classList.remove("flying");
+          ufo.style.setProperty("--trail-scale", "0");
+          ufo.style.transform = `translate3d(${segment.point.x}px,${segment.point.y}px,0)`;
+        } else {
+          const t = Math.max(0, Math.min(1, (elapsed - segment.start) / segment.duration));
+          const e = ease(t);
+          const x = segment.from.x + (segment.to.x - segment.from.x) * e;
+          const y = segment.from.y + (segment.to.y - segment.from.y) * e;
+          const trailScale = 0.42 + Math.sin(Math.PI * t) * 0.14;
+
+          ufo.classList.add("flying");
+          ufo.style.setProperty("--trail-angle", `${segment.angle + 180}deg`);
+          ufo.style.setProperty("--trail-scale", `${trailScale}`);
+          ufo.style.transform = `translate3d(${x}px,${y}px,0) rotate(${segment.angle * .10}deg)`;
+        }
+
+        raf = requestAnimationFrame(render);
+      }
+
+      function stop() {
+        running = false;
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+
+      function start() {
+        stop();
+        planets = getVisiblePlanets();
+        if (planets.length < 2) return;
+        rebuildPath();
+        startTime = performance.now();
+        running = true;
+        if (!reduceMotion && visible) raf = requestAnimationFrame(render);
+      }
+
+      window.refreshConstellationUfo = start;
+
+      const visibilityObserver = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        visible = !!entry?.isIntersecting;
+        if (visible) {
+          start();
+        } else {
+          stop();
+        }
+      }, { rootMargin: "180px 0px", threshold: 0 });
+      visibilityObserver.observe(constellation);
+
+      let resizeTimer = 0;
+      const resizeObserver = new ResizeObserver(() => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(start, 120);
+      });
+      resizeObserver.observe(constellation);
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) stop();
+        else if (visible) start();
+      });
+
+      start();
+    })();
+
+
+    // Botão "Ver mais": mantém 01 e 02 visíveis e libera 03–05 ao clicar.
+    (() => {
+      const toggle = document.querySelector(".deliveries-toggle");
+      const hiddenItems = Array.from(document.querySelectorAll(".is-hidden-delivery"));
+      if (!toggle || !hiddenItems.length) return;
+
+      const label = toggle.querySelector(".toggle-label");
+
+      toggle.addEventListener("click", () => {
+        const expanded = toggle.getAttribute("aria-expanded") === "true";
+        const nextExpanded = !expanded;
+
+        hiddenItems.forEach((item) => {
+          item.hidden = !nextExpanded;
+          item.classList.toggle("is-hidden-delivery", !nextExpanded);
+        });
+
+        toggle.setAttribute("aria-expanded", String(nextExpanded));
+        label.textContent = nextExpanded ? "Ver menos entregas" : "Ver mais entregas";
+
+        // Recalcula a rota da nave para incluir/excluir os planetas que foram exibidos.
+        window.requestAnimationFrame(() => {
+          window.refreshConstellationUfo?.();
+        });
+      });
+    })();
+
+
+    const items = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.14 }
+    );
+
+    items.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index * 35, 140)}ms`;
+      observer.observe(item);
+    });
+
+    // Ambient galaxy background: lightweight, throttled, and pause-aware.
+    (() => {
+      const canvas = document.getElementById("particle-canvas");
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d");
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const mobile = window.matchMedia("(max-width: 680px)").matches;
+
+      // Reduced motion: draw a single static frame and stop entirely, no loop at all.
+      if (reduced) {
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        const w = window.innerWidth, h = window.innerHeight;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return;
+      }
+
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let particles = [];
+      let raf = 0;
+      let running = false;
+      let lastFrame = 0;
+      let lastTs = 0;
+      let scrollResumeTimer = 0;
+
+      // Fewer particles and shorter link distance keep the O(n^2) connection
+      // check cheap even on low-end hardware. DPR is capped so the canvas
+      // isn't rasterized at needlessly high pixel density.
+      const linkDistance = mobile ? 70 : 100;
+      const settings = {
+        count: mobile ? 16 : 34,
+        linkDistance,
+        linkDistanceSq: linkDistance * linkDistance,
+        speed: 0.18,
+        frameInterval: 1000 / 30 // lighter render cadence keeps the page responsive while scrolling
+      };
+
+      // Stardust cursor trail: tiny fading specks spawned along the pointer's
+      // path. Only on devices with an actual mouse (skips touchmove noise on
+      // mobile), capped in count, and rendered inside the same draw() loop
+      // above so it never adds a second render loop or a second clearRect.
+      const pointerFine = window.matchMedia("(pointer: fine)").matches;
+      const trail = [];
+      const trailMax = 46;
+      let lastTrailX = null;
+      let lastTrailY = null;
+
+      function spawnDust(x, y) {
+        trail.push({
+          x, y,
+          vx: (Math.random() - 0.5) * 0.12,
+          vy: -Math.random() * 0.22 - 0.04,
+          r: Math.random() * 1.15 + 0.35,
+          life: 0,
+          maxLife: 500 + Math.random() * 350,
+          bright: Math.random() < 0.3
+        });
+        if (trail.length > trailMax) trail.splice(0, trail.length - trailMax);
+      }
+
+      function onPointerMove(e) {
+        const x = e.clientX;
+        const y = e.clientY;
+        if (lastTrailX === null) {
+          spawnDust(x, y);
+        } else {
+          const dx = x - lastTrailX;
+          const dy = y - lastTrailY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const steps = Math.min(Math.floor(dist / 14), 4);
+          for (let i = 1; i <= steps; i++) {
+            spawnDust(lastTrailX + dx * (i / steps), lastTrailY + dy * (i / steps));
+          }
+        }
+        lastTrailX = x;
+        lastTrailY = y;
+      }
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      // Intro cursor trail: starts with the page instead of waiting for the
+      // first pointer movement, so the stardust effect appears together with
+      // the other ambient animations during the initial load.
+      function seedIntroDust() {
+        if (!pointerFine || !width || !height) return;
+        const originX = width * 0.5;
+        const originY = Math.min(height * 0.46, 420);
+        const count = mobile ? 10 : 18;
+
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const radius = 10 + Math.random() * 72;
+          const particle = {
+            x: originX + Math.cos(angle) * radius,
+            y: originY + Math.sin(angle) * radius,
+            vx: Math.cos(angle) * (0.05 + Math.random() * 0.08),
+            vy: -0.03 - Math.random() * 0.17,
+            r: Math.random() * 1.15 + 0.35,
+            life: Math.random() * 220,
+            maxLife: 650 + Math.random() * 450,
+            bright: Math.random() < 0.35
+          };
+          trail.push(particle);
+        }
+      }
+
+      // Pontos ambientes maiores funcionam como estrelas luminosas discretas.
+      // A pulsação lenta mantém o fundo vivo sem ficar visualmente carregado.
+      function makeParticle() {
+        return {
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * settings.speed,
+          vy: (Math.random() - 0.5) * settings.speed,
+          r: Math.random() * 1.45 + 2.15,
+          phase: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 0.00011 + 0.00018
+        };
+      }
+
+      function resetParticles() {
+        particles = Array.from({ length: settings.count }, makeParticle);
+      }
+
+      // Fixed color strings, reused every frame via globalAlpha instead of
+      // building a new "rgba(...)" string per particle/line/speck. Template
+      // literals in a hot loop force repeated allocation + CSS-color parsing;
+      // setting fillStyle/strokeStyle once and only varying globalAlpha is
+      // materially cheaper and avoids extra GC pauses that show up as jank.
+      const PARTICLE_COLOR = "rgb(180,240,255)";
+      const LINK_COLOR = "rgb(120,220,240)";
+      const DUST_BRIGHT = "rgb(224,246,255)";
+      const DUST_DIM = "rgb(140,215,240)";
+
+      function draw(now) {
+        if (!running) return;
+        raf = requestAnimationFrame(draw);
+
+        if (now - lastFrame < settings.frameInterval) return;
+        const dt = lastTs ? Math.min(now - lastTs, 100) : 16;
+        lastTs = now;
+        lastFrame = now;
+
+        ctx.clearRect(0, 0, width, height);
+
+        ctx.fillStyle = PARTICLE_COLOR;
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.phase += p.spin * dt;
+
+          if (p.x < -24) p.x = width + 24;
+          if (p.x > width + 24) p.x = -24;
+          if (p.y < -24) p.y = height + 24;
+          if (p.y > height + 24) p.y = -24;
+
+          const pulse = 0.66 + Math.sin(p.phase * 1.7) * 0.22;
+          const glow = p.r * 2.15;
+
+          // Estrelas maiores: núcleo brilhante + quatro pontas suaves.
+          ctx.lineCap = "round";
+          ctx.lineWidth = Math.max(0.7, p.r * 0.16);
+          ctx.globalAlpha = pulse * 0.32;
+          ctx.beginPath();
+          ctx.moveTo(p.x - glow, p.y);
+          ctx.lineTo(p.x + glow, p.y);
+          ctx.moveTo(p.x, p.y - glow);
+          ctx.lineTo(p.x, p.y + glow);
+          ctx.stroke();
+
+          ctx.globalAlpha = pulse;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 0.72, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.strokeStyle = LINK_COLOR;
+        ctx.lineWidth = 1;
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i];
+            const b = particles[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            // Cheap squared-distance check first; only pay for sqrt() on
+            // pairs that are actually close enough to draw a line.
+            const distSq = dx * dx + dy * dy;
+
+            if (distSq < settings.linkDistanceSq) {
+              const dist = Math.sqrt(distSq);
+              ctx.globalAlpha = (1 - dist / settings.linkDistance) * 0.13;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        if (trail.length) {
+          const step = dt / 16;
+          for (let i = trail.length - 1; i >= 0; i--) {
+            const t = trail[i];
+            t.life += dt;
+            if (t.life >= t.maxLife) {
+              trail.splice(i, 1);
+              continue;
+            }
+            t.x += t.vx * step;
+            t.y += t.vy * step;
+
+            const progress = t.life / t.maxLife;
+            // Ease in fast over the first slice of life, then fade back out,
+            // so each speck starts from nothing instead of popping straight
+            // to full brightness.
+            const envelope =
+              progress < 0.15 ? progress / 0.15 : 1 - (progress - 0.15) / 0.85;
+            const alpha = envelope * (t.bright ? 0.8 : 0.5);
+            const size = t.r * (1 - progress * 0.35);
+
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = t.bright ? DUST_BRIGHT : DUST_DIM;
+            ctx.beginPath();
+            ctx.arc(t.x, t.y, size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        ctx.globalAlpha = 1;
+      }
+
+      function start() {
+        if (running || raf) return;
+        running = true;
+        lastFrame = 0;
+        raf = requestAnimationFrame(draw);
+      }
+
+      function stop() {
+        running = false;
+        if (raf) cancelAnimationFrame(raf);
+        raf = 0;
+        lastTs = 0;
+      }
+
+      resize();
+      resetParticles();
+      seedIntroDust();
+
+      window.addEventListener("resize", () => {
+        resize();
+        resetParticles();
+      }, { passive: true });
+
+      // Scrolling must not interrupt the ambient animation loop.
+      // Keep the listener lightweight and let the existing RAF continue.
+      window.addEventListener("scroll", () => {
+        document.body.classList.add("is-scrolling");
+      }, { passive: true });
+
+      if (pointerFine) {
+        window.addEventListener("pointermove", onPointerMove, { passive: true });
+      }
+
+      // Stop the loop completely when the tab isn't visible, instead of
+      // burning CPU on a hidden canvas.
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          window.clearTimeout(scrollResumeTimer);
+          document.body.classList.remove("is-scrolling");
+          stop();
+        } else {
+          start();
+        }
+      });
+
+      start();
+    })();
+  </script>
+</body>
+</html>
