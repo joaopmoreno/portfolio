@@ -1568,6 +1568,128 @@
         animation: none !important;
       }
     }
+
+    /* Registro do Mundo SENAI integrado às entregas. */
+    .mundo-senai-delivery .constellation-planet {
+      background: radial-gradient(circle at 32% 26%, #c9fbff, #46b9cf 52%, #224d84);
+      box-shadow: 0 0 14px var(--glow);
+    }
+
+    .mundo-senai-photo {
+      position: relative;
+      margin-top: 18px;
+    }
+
+    .mundo-senai-photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--bg-soft);
+    }
+
+    .mundo-senai-photo figcaption {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.6;
+    }
+
+    .mundo-senai-actions {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 18px;
+      margin-top: 18px;
+    }
+
+    .mundo-senai-actions .constellation-link {
+      margin-top: 0;
+      min-height: 44px;
+      line-height: 1.5;
+    }
+
+    .mundo-senai-info,
+    .mundo-senai-confirm {
+      appearance: none;
+      padding: 11px 14px;
+      min-height: 44px;
+      border: 1px solid rgba(34,211,238,.35);
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(34,211,238,.10), rgba(139,92,246,.10));
+      color: var(--text);
+      font: 700 .78rem/1.5 Inter, ui-sans-serif, system-ui, sans-serif;
+      cursor: pointer;
+    }
+
+    .mundo-senai-info:hover,
+    .mundo-senai-confirm:hover {
+      background: rgba(34,211,238,.16);
+      border-color: var(--accent);
+    }
+
+    .mundo-senai-actions :focus-visible,
+    .mundo-senai-dialog :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    body.mundo-senai-dialog-open {
+      overflow: hidden;
+    }
+
+    .mundo-senai-dialog {
+      position: fixed;
+      inset: 0;
+      width: min(560px, calc(100% - 32px));
+      max-height: calc(100dvh - 40px);
+      margin: auto;
+      padding: clamp(22px, 5vw, 34px);
+      overflow-y: auto;
+      border: 1px solid rgba(34,211,238,.28);
+      border-radius: var(--radius);
+      color: var(--text);
+      background: linear-gradient(145deg, #191f25, #0a0d10);
+      box-shadow: 0 24px 90px rgba(0,0,0,.65), 0 0 36px var(--glow);
+    }
+
+    .mundo-senai-dialog::backdrop {
+      background: rgba(4,7,10,.82);
+      backdrop-filter: blur(7px);
+    }
+
+    .mundo-senai-dialog h2 {
+      margin-top: 18px;
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: -.04em;
+    }
+
+    .mundo-senai-dialog p {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: .94rem;
+      line-height: 1.8;
+    }
+
+    .mundo-senai-dialog .mundo-senai-source {
+      font-size: .76rem;
+    }
+
+    .mundo-senai-source a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .mundo-senai-dialog form {
+      margin-top: 26px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
   </style>
 </head>
 
@@ -1804,6 +1926,24 @@
                 <a class="constellation-link" href="05-ancoras-manifesto/">abrir pasta <span>↗</span></a>
               </div>
               <span class="constellation-planet" data-planet="saturno" aria-label="Saturno" aria-hidden="true"></span>
+            </article>
+
+
+            <article class="constellation-item delivery-item is-hidden-delivery mundo-senai-delivery" data-delivery-card="6" id="mundo-senai-2026" hidden>
+              <div class="constellation-card reveal">
+                <div class="card-index">06</div>
+                <h3>Mundo SENAI 2026</h3>
+                <div class="date"><time datetime="2026-11-05">05 de novembro de 2026</time></div>
+                <figure class="mundo-senai-photo">
+                  <img src="imagens/mundo-senai-2026-grupo.jpg" alt="Foto em grupo durante o Mundo SENAI 2026, em frente a uma tela de apresentação." width="1170" height="1138" loading="lazy" decoding="async" />
+                  <figcaption>Registro da minha participação no Mundo SENAI 2026, durante o curso técnico em Informática para Internet.</figcaption>
+                </figure>
+                <div class="mundo-senai-actions">
+                  <button class="mundo-senai-info" type="button" aria-haspopup="dialog" aria-controls="mundo-senai-dialog">O que é o MUNDO SENAI?</button>
+                  <a class="constellation-link" href="https://github.com/joaopmoreno/portfolio/tree/main/06-mundo-senai-2026" target="_blank" rel="noopener noreferrer">abrir registro <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+              <span class="constellation-planet" data-planet="urano" aria-hidden="true"></span>
             </article>
           </div>
 
@@ -2456,6 +2596,44 @@
 
       lightbox.addEventListener('close', () => {
         enlargedCover.removeAttribute('src');
+      });
+    })();
+  </script>
+
+
+  <dialog class="mundo-senai-dialog" id="mundo-senai-dialog" aria-labelledby="mundo-senai-title" aria-describedby="mundo-senai-description">
+    <span class="eyebrow">educação / tecnologia</span>
+    <h2 id="mundo-senai-title">O que é o MUNDO SENAI?</h2>
+    <p id="mundo-senai-description">O Mundo SENAI é um evento em que o SENAI abre suas portas à comunidade para apresentar a educação profissional, as tecnologias e as possibilidades de atuação na indústria.</p>
+    <p>Com atividades práticas, demonstrações e visitas aos ambientes de aprendizagem, o público pode conhecer cursos e descobrir diferentes caminhos profissionais.</p>
+    <p>Este registro reúne minha participação na edição de 2026, em <time datetime="2026-11-05">5 de novembro de 2026</time>, durante o curso técnico em Informática para Internet.</p>
+    <p class="mundo-senai-source">Saiba mais: <a href="https://www.sp.senai.br/unidade/saojosedoscampos/mundo-senai-2026" target="_blank" rel="noopener noreferrer">sobre o evento no SENAI</a>.</p>
+    <form method="dialog">
+      <button class="mundo-senai-confirm" type="submit" autofocus>OK, entendi!</button>
+    </form>
+  </dialog>
+  <script>
+    (() => {
+      const trigger = document.querySelector('.mundo-senai-info');
+      const dialog = document.getElementById('mundo-senai-dialog');
+      if (!trigger || !dialog) return;
+
+      trigger.addEventListener('click', () => {
+        dialog.showModal();
+        document.body.classList.add('mundo-senai-dialog-open');
+      });
+
+      dialog.addEventListener('close', () => {
+        document.body.classList.remove('mundo-senai-dialog-open');
+      });
+
+      dialog.addEventListener('click', (event) => {
+        if (event.target !== dialog) return;
+        const bounds = dialog.getBoundingClientRect();
+        if (event.clientX < bounds.left || event.clientX > bounds.right ||
+            event.clientY < bounds.top || event.clientY > bounds.bottom) {
+          dialog.close();
+        }
       });
     })();
   </script>
