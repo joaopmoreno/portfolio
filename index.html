@@ -671,7 +671,7 @@
     }
 
     /* Mercúrio */
-    .constellation-item:nth-child(1) .constellation-planet {
+    .constellation-planet[data-planet="mercurio"] {
       background:
         radial-gradient(circle at 34% 28%, rgba(255,255,255,.35) 0 7%, transparent 8%),
         radial-gradient(circle at 64% 62%, rgba(40,40,40,.24) 0 11%, transparent 12%),
@@ -680,7 +680,7 @@
     }
 
     /* Terra */
-    .constellation-item:nth-child(2) .constellation-planet {
+    .constellation-planet[data-planet="terra"] {
       background:
         radial-gradient(circle at 30% 28%, #59d7ff 0 6%, transparent 7%),
         radial-gradient(circle at 58% 62%, #62d96f 0 12%, transparent 13%),
@@ -690,7 +690,7 @@
     }
 
     /* Marte */
-    .constellation-item:nth-child(3) .constellation-planet {
+    .constellation-planet[data-planet="marte"] {
       background:
         radial-gradient(circle at 34% 30%, rgba(255,205,160,.25) 0 7%, transparent 8%),
         radial-gradient(circle at 63% 63%, rgba(95,30,20,.28) 0 13%, transparent 14%),
@@ -699,7 +699,7 @@
     }
 
     /* Júpiter */
-    .constellation-item:nth-child(4) .constellation-planet {
+    .constellation-planet[data-planet="jupiter"] {
       background:
         radial-gradient(ellipse at 66% 57%, rgba(164,74,42,.72) 0 10%, transparent 11%),
         repeating-linear-gradient(0deg, #ead3b2 0 5px, #b78662 5px 8px, #e7caa5 8px 12px, #9f7153 12px 15px);
@@ -707,12 +707,12 @@
     }
 
     /* Saturno */
-    .constellation-item:nth-child(5) .constellation-planet {
+    .constellation-planet[data-planet="saturno"] {
       background: linear-gradient(0deg, #a87943, #e3bf84 45%, #f1d7a5 100%);
       box-shadow: 0 0 12px rgba(236,194,128,.28), 0 0 28px rgba(210,160,95,.12);
     }
 
-    .constellation-item:nth-child(5) .constellation-planet::before {
+    .constellation-planet[data-planet="saturno"]::before {
       inset: 5px -17px;
       border: 3px solid rgba(214,181,132,.68);
       border-top-color: rgba(239,216,175,.8);
@@ -1601,7 +1601,7 @@
                     <h3>O Sucesso Nasce do Querer</h3>
                     <div class="date">Álbum autoral · 2026</div>
                     <p>Uma capa que representa minha fé, minha família, meus talentos, meus desafios e o sonho de construir meu futuro.</p>
-                    <a class="constellation-link" href="02-capa-do-album/">abrir pasta <span>↗</span></a>
+                    <a class="constellation-link" href="https://github.com/joaopmoreno/portfolio/blob/main/Capa%20%C3%81lbum.png" target="_blank" rel="noopener noreferrer">Ver capa no GitHub <span aria-hidden="true">↗</span></a>
                   </div>
                   <button
                     class="album-cover-button"
@@ -1625,54 +1625,9 @@
               <span class="constellation-planet" data-planet="mercurio" aria-label="Mercúrio" aria-hidden="true"></span>
             </article>
 
-            <article class="constellation-item">
+            <article class="constellation-item mundo-senai-delivery" id="mundo-senai-2026">
               <div class="constellation-card">
                 <div class="card-index">02</div>
-                <h3>Dashboard Quem Sou Eu</h3>
-                <div class="date">Data: editar</div>
-                <p>Aprendi a transformar informações sobre mim em uma apresentação visual clara, organizada e fácil de explorar.</p>
-                <a class="constellation-link" href="03-dashboard/">abrir pasta <span>↗</span></a>
-              </div>
-              <span class="constellation-planet" data-planet="terra" aria-label="Terra" aria-hidden="true"></span>
-            </article>
-
-            <article class="constellation-item delivery-item" data-delivery-card="3" hidden>
-              <div class="constellation-card">
-                <div class="card-index">03</div>
-                <h3>Árvore das Profissões</h3>
-                <div class="date">Data: editar</div>
-                <p>Aprendi a conectar habilidades, interesses e possibilidades profissionais para pensar melhor sobre meu futuro.</p>
-                <a class="constellation-link" href="04-arvore-profissoes/">abrir pasta <span>↗</span></a>
-              </div>
-              <span class="constellation-planet" data-planet="marte" aria-label="Marte" aria-hidden="true"></span>
-            </article>
-
-            <article class="constellation-item delivery-item" data-delivery-card="4" hidden>
-              <div class="constellation-card">
-                <div class="card-index">04</div>
-                <h3>Âncoras de Carreira</h3>
-                <div class="date">Data: editar</div>
-                <p>Aprendi a reconhecer valores e preferências que podem orientar minhas escolhas acadêmicas e profissionais.</p>
-                <a class="constellation-link" href="05-ancoras-manifesto/">abrir pasta <span>↗</span></a>
-              </div>
-              <span class="constellation-planet" data-planet="jupiter" aria-label="Júpiter" aria-hidden="true"></span>
-            </article>
-
-            <article class="constellation-item delivery-item" data-delivery-card="5" hidden>
-              <div class="constellation-card">
-                <div class="card-index">05</div>
-                <h3>O Manifesto</h3>
-                <div class="date">Data: editar</div>
-                <p>Aprendi a colocar objetivos e princípios em palavras, construindo uma visão mais clara de quem quero ser no futuro.</p>
-                <a class="constellation-link" href="05-ancoras-manifesto/">abrir pasta <span>↗</span></a>
-              </div>
-              <span class="constellation-planet" data-planet="saturno" aria-label="Saturno" aria-hidden="true"></span>
-            </article>
-
-
-            <article class="constellation-item delivery-item mundo-senai-delivery" data-delivery-card="6" id="mundo-senai-2026" hidden>
-              <div class="constellation-card">
-                <div class="card-index">06</div>
                 <h3>Mundo SENAI 2026</h3>
                 <div class="date"><time datetime="2026-11-05">05 de novembro de 2026</time></div>
                 <figure class="mundo-senai-photo">
@@ -1685,6 +1640,46 @@
                 </div>
               </div>
               <span class="constellation-planet" data-planet="urano" aria-hidden="true"></span>
+            </article>
+
+            <article class="constellation-item delivery-item" data-delivery-card="3" hidden>
+              <div class="constellation-card">
+                <div class="card-index">03</div>
+                <h3>Dashboard Quem Sou Eu</h3>
+                <div class="date">Data: editar</div>
+                <p>Aprendi a transformar informações sobre mim em uma apresentação visual clara, organizada e fácil de explorar.</p>
+              </div>
+              <span class="constellation-planet" data-planet="terra" aria-label="Terra" aria-hidden="true"></span>
+            </article>
+
+            <article class="constellation-item delivery-item" data-delivery-card="4" hidden>
+              <div class="constellation-card">
+                <div class="card-index">04</div>
+                <h3>Árvore das Profissões</h3>
+                <div class="date">Data: editar</div>
+                <p>Aprendi a conectar habilidades, interesses e possibilidades profissionais para pensar melhor sobre meu futuro.</p>
+              </div>
+              <span class="constellation-planet" data-planet="marte" aria-label="Marte" aria-hidden="true"></span>
+            </article>
+
+            <article class="constellation-item delivery-item" data-delivery-card="5" hidden>
+              <div class="constellation-card">
+                <div class="card-index">05</div>
+                <h3>Âncoras de Carreira</h3>
+                <div class="date">Data: editar</div>
+                <p>Aprendi a reconhecer valores e preferências que podem orientar minhas escolhas acadêmicas e profissionais.</p>
+              </div>
+              <span class="constellation-planet" data-planet="jupiter" aria-label="Júpiter" aria-hidden="true"></span>
+            </article>
+
+            <article class="constellation-item delivery-item" data-delivery-card="6" hidden>
+              <div class="constellation-card">
+                <div class="card-index">06</div>
+                <h3>O Manifesto</h3>
+                <div class="date">Data: editar</div>
+                <p>Aprendi a colocar objetivos e princípios em palavras, construindo uma visão mais clara de quem quero ser no futuro.</p>
+              </div>
+              <span class="constellation-planet" data-planet="saturno" aria-label="Saturno" aria-hidden="true"></span>
             </article>
           </div>
 
@@ -1701,8 +1696,7 @@
           </div>
 
           <div class="terminal-note">
-            <strong>constelação:</strong> cada planeta representa uma etapa do meu caminho e cada conexão leva à pasta correspondente do repositório.
-            Troque apenas as datas e os links finais quando o conteúdo estiver publicado.
+            <strong>Constelação.</strong> Cada planeta representa uma etapa do meu caminho. As entregas publicadas incluem um link para o material no GitHub.
           </div>
         </div>
       </div>
