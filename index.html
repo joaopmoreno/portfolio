@@ -297,6 +297,21 @@
       text-shadow: 0 0 26px rgba(255,255,255,.1);
     }
 
+    @keyframes ring-turn {
+      to { rotate: 1turn; }
+    }
+
+    @keyframes jp-float {
+      50% { translate: 0 -5px; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .avatar-wrap::before { animation: ring-turn 80s linear infinite; }
+      .orbit-line { animation: ring-turn 100s linear infinite reverse; }
+      .avatar::after { animation: ring-turn 48s linear infinite reverse; }
+      .avatar-text { animation: jp-float 5s ease-in-out infinite; }
+    }
+
     .avatar-badge {
       position: absolute;
       right: -8px;
