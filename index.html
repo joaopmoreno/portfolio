@@ -297,22 +297,11 @@
       text-shadow: 0 0 26px rgba(255,255,255,.1);
     }
 
-    @keyframes chip-float {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(2px, -6px); }
-    }
-
     @keyframes jp-float {
       50% { translate: 0 -5px; }
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      .floating-chip, .avatar-badge {
-        animation: chip-float 9s ease-in-out infinite;
-      }
-      .chip-b { animation-delay: -3s; }
-      .chip-c { animation-delay: -6s; }
-      .avatar-badge { animation-delay: -2s; }
       .avatar-text { animation: jp-float 5s ease-in-out infinite; }
     }
 
@@ -1479,6 +1468,32 @@
       margin-top: 26px;
       display: flex;
       justify-content: flex-end;
+    }
+
+    @keyframes label-orbit {
+      from { transform: translate(-50%, -50%) rotate(0turn) translateX(var(--orbit-radius)) rotate(0turn); }
+      to { transform: translate(-50%, -50%) rotate(1turn) translateX(var(--orbit-radius)) rotate(-1turn); }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .avatar-wrap {
+        container-type: inline-size;
+        --orbit-radius: clamp(60px, calc(50cqw - 76px), 174px);
+      }
+
+      .avatar-wrap .floating-chip,
+      .avatar-wrap .avatar-badge {
+        inset: 50% auto auto 50%;
+        width: max-content;
+        z-index: 3;
+        animation: label-orbit 160s linear infinite;
+        animation-delay: var(--orbit-phase);
+      }
+
+      .chip-a { --orbit-phase: -100s; }
+      .chip-b { --orbit-phase: -60s; }
+      .chip-c { --orbit-phase: -140s; }
+      .avatar-badge { --orbit-phase: -20s; }
     }
 
   </style>
