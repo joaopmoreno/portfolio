@@ -297,8 +297,9 @@
       text-shadow: 0 0 26px rgba(255,255,255,.1);
     }
 
-    @keyframes ring-turn {
-      to { rotate: 1turn; }
+    @keyframes chip-float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(2px, -6px); }
     }
 
     @keyframes jp-float {
@@ -306,9 +307,12 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      .avatar-wrap::before { animation: ring-turn 80s linear infinite; }
-      .orbit-line { animation: ring-turn 100s linear infinite reverse; }
-      .avatar::after { animation: ring-turn 48s linear infinite reverse; }
+      .floating-chip, .avatar-badge {
+        animation: chip-float 9s ease-in-out infinite;
+      }
+      .chip-b { animation-delay: -3s; }
+      .chip-c { animation-delay: -6s; }
+      .avatar-badge { animation-delay: -2s; }
       .avatar-text { animation: jp-float 5s ease-in-out infinite; }
     }
 
