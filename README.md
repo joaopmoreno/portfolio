@@ -11,11 +11,8 @@ Sou estudante do curso técnico de **Informática para Internet**, em Varginha (
 | 01 | O Sucesso Nasce do Querer | Criei uma capa de álbum que representa minha fé, minha família, meus talentos, meus desafios e meus planos para o futuro. | [Capa e processo de criação](https://github.com/joaopmoreno/capa-do-album) |
 | 02 | Mundo SENAI 2026 | Registrei minha participação no evento em 5 de novembro de 2026, durante o curso técnico. | [Foto e registro do evento](https://github.com/joaopmoreno/mundo-senai-2026) |
 | 03 | Árvore das Profissões | Organizei as profissões de três gerações da minha família em uma árvore genealógica. | [Árvore, pesquisa e processo](https://github.com/joaopmoreno/arvore-do-trabalho) |
-| 04 | Dashboard Quem Sou Eu | Transformei informações sobre mim em uma apresentação visual fácil de explorar. | [Ver nas entregas](https://joaopmoreno.github.io/portfolio/#entregas) |
-| 05 | Âncoras de Carreira | Identifiquei valores e preferências que podem orientar minhas escolhas acadêmicas e profissionais. | [Ver nas entregas](https://joaopmoreno.github.io/portfolio/#entregas) |
-| 06 | O Manifesto | Escrevi sobre meus princípios, objetivos e a pessoa que quero me tornar. | [Ver nas entregas](https://joaopmoreno.github.io/portfolio/#entregas) |
 
-Na seção **Minhas entregas**, clique em **Ver mais entregas** para abrir os cartões 03 a 06.
+Na seção **Minhas entregas**, clique em **Ver mais entregas** para ver a Árvore das Profissões.
 
 ## Sobre o site
 

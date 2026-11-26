@@ -1071,18 +1071,44 @@
     .orb-a { top: 25%; right: -180px; }
     .orb-b { left: -210px; bottom: 9%; background: radial-gradient(circle, rgba(139,92,246,.09), transparent 65%); }
 
-    /* Estrelas e grade estáticas, desenhadas junto com o restante do fundo. */
     .ambient-bg {
       position: fixed;
       inset: 0;
       z-index: -3;
       pointer-events: none;
       background:
-        radial-gradient(circle at 19% 21%, rgba(180,240,255,.55) 0 1px, transparent 2px) 0 0 / 337px 251px,
-        radial-gradient(circle at 72% 59%, rgba(180,240,255,.35) 0 1px, transparent 2px) 0 0 / 281px 307px,
-        radial-gradient(circle at 42% 82%, rgba(180,240,255,.45) 0 1px, transparent 2px) 0 0 / 359px 383px,
         linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px) 0 0 / 42px 42px,
         linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px) 0 0 / 42px 42px;
+    }
+
+    .ambient-bg:empty::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 19% 21%, rgba(180,240,255,.55) 0 1px, transparent 2px) 0 0 / 337px 251px,
+        radial-gradient(circle at 72% 59%, rgba(180,240,255,.35) 0 1px, transparent 2px) 0 0 / 281px 307px,
+        radial-gradient(circle at 42% 82%, rgba(180,240,255,.45) 0 1px, transparent 2px) 0 0 / 359px 383px;
+    }
+
+    .ambient-star {
+      position: absolute;
+      width: var(--star-size);
+      height: var(--star-size);
+      border-radius: 50%;
+      background: #b4f0ff;
+      opacity: .35;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .ambient-star {
+        animation: star-twinkle var(--star-period) ease-in-out var(--star-delay) infinite;
+      }
+    }
+
+    @keyframes star-twinkle {
+      0%, 100% { opacity: .08; }
+      50% { opacity: .75; }
     }
 
     @media (max-width: 1080px) {
@@ -1738,6 +1764,30 @@
   </footer>
 
   <script>
+    {
+      const background = document.querySelector(".ambient-bg");
+      const stars = document.createDocumentFragment();
+      const columns = 6;
+      const rows = 4;
+
+      for (let index = 0; index < columns * rows; index++) {
+        const star = document.createElement("span");
+        const column = index % columns;
+        const row = Math.floor(index / columns);
+        const period = 5 + Math.random() * 7;
+
+        star.className = "ambient-star";
+        star.style.left = `${(column + 0.15 + Math.random() * 0.7) * 100 / columns}%`;
+        star.style.top = `${(row + 0.15 + Math.random() * 0.7) * 100 / rows}%`;
+        star.style.setProperty("--star-size", `${Math.random() < 0.4 ? 3 : 2}px`);
+        star.style.setProperty("--star-period", `${period}s`);
+        star.style.setProperty("--star-delay", `${-Math.random() * period}s`);
+        stars.append(star);
+      }
+
+      background.append(stars);
+    }
+
     // A barra segue a rolagem via CSS. Navegadores sem suporte usam esta alternativa.
     (() => {
       if (CSS.supports("animation-timeline: scroll(root block)")) return;
